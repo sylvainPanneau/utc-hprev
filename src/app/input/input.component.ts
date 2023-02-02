@@ -28,10 +28,13 @@ export class InputComponent implements OnInit {
     plugins: [timeGridPlugin],
     initialView: 'timeGridWeek',
     weekends: false,
-    events: [{ title: 'Meeting', start: new Date() }],
+    events: [],
     slotMinTime: '08:00:00',
     slotMaxTime: '20:00:00',
     headerToolbar: false,
+    allDaySlot: false,
+    dayHeaderFormat: {weekday: 'long'},
+    locale: 'fr',
   };
 
   constructor() {}

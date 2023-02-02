@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {
   CalendarOptions,
   EventInput,
-  EventSourceInput,
 } from '@fullcalendar/core';
-import { Identity } from '@fullcalendar/core/internal';
 
 import timeGridPlugin from '@fullcalendar/timegrid';
+
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-input',
@@ -14,6 +14,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent implements OnInit {
+  faChevronLeft = faChevronLeft;
+  faChevronRight = faChevronRight;
   text: any;
   criticalSchedule: EventInput[] = [];
   possibleSchedules: EventInput[][] = [];
@@ -27,14 +29,40 @@ export class InputComponent implements OnInit {
     events: [{ title: 'Meeting', start: new Date() }],
     slotMinTime: '08:00:00',
     slotMaxTime: '20:00:00',
+    headerToolbar: false,
   };
 
   constructor() {}
 
   ngOnInit(): void {}
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key == 'ArrowLeft') {
+      this.previousSchedule();
+    } else if (event.key == 'ArrowRight') {
+      this.nextSchedule();
+    }
+  }
+
+  previousSchedule() {
+    this.selectedSchedule = this.possibleSchedules[
+      this.possibleSchedules.indexOf(this.selectedSchedule) - 1 < 0 ? 0 : this.possibleSchedules.indexOf(this.selectedSchedule) - 1
+    ];
+    this.updateCalendar();
+  }
+
+  nextSchedule() {
+    this.selectedSchedule = this.possibleSchedules[
+      this.possibleSchedules.indexOf(this.selectedSchedule) + 1 > this.possibleSchedules.length - 1 ? this.possibleSchedules.length - 1 : this.possibleSchedules.indexOf(this.selectedSchedule) + 1
+    ];
+    this.updateCalendar();
+  }
+
   generate(text: string) {
     this.calendarOptions.events = [];
+    this.criticalSchedule = [];
+    this.possibleSchedules = [];
 
     // first break the text into lines
     let lines = text.split('\n');
@@ -176,7 +204,6 @@ export class InputComponent implements OnInit {
         }
       });
       schedule.push(...combination);
-      console.log(schedule);
 
       // add the schedule only if there are no events that have the same starting time
       let isScheduleValid = true;

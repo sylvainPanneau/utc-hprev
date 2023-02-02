@@ -1,0 +1,10 @@
+.edt-selector {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.chevron:hover {
+    cursor: pointer;
+}

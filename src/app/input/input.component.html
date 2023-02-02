@@ -1,5 +1,12 @@
 <!-- title -->
-<h1 class="text-center mt-3 mb-3 text-primary font-weight-bold">HPrev</h1>
+<div class="head-container">
+  <fa-icon
+    [icon]="faCalendar"
+    class="text-primary calendar-icon"
+    size="2x"
+  ></fa-icon>
+  <h1 class="text-center mt-3 mb-3 text-primary font-weight-bold">HPrev</h1>
+</div>
 <h2 class="text-center mt-3 mb-3 text-secondary font-weight-bold">
   Générateur d'emploi du temps prévisionnel
 </h2>
@@ -10,11 +17,17 @@
     placeholder="Copier les horaires prévisionnels"
     [(ngModel)]="text"
   ></textarea>
-  <button class="btn btn-primary w-50 mb-3" (click)="generate(text)">Générer</button>
+  <button class="btn btn-primary w-50 mb-3" (click)="generate(text)">
+    Générer
+    <fa-icon [icon]="faPaperPlane" class="gen-icon"></fa-icon>
+  </button>
   <!-- liste déroulante avec tous les possibleSchedules -->
   <div class="form-group" *ngIf="selectedSchedule">
-    <label for="exampleFormControlSelect1" class="mt-3 mb-3 text-primary font-weight-bold">
-        Choisir un emploi du temps
+    <label
+      for="exampleFormControlSelect1"
+      class="mt-3 mb-3 text-primary font-weight-bold"
+    >
+      Choisir un emploi du temps
     </label>
     <div class="edt-selector">
       <fa-icon

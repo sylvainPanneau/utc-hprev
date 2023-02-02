@@ -6,7 +6,7 @@ import {
 
 import timeGridPlugin from '@fullcalendar/timegrid';
 
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faCalendar, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-input',
@@ -16,6 +16,8 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 export class InputComponent implements OnInit {
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
+  faCalendar = faCalendar;
+  faPaperPlane = faPaperPlane;
   text: any;
   criticalSchedule: EventInput[] = [];
   possibleSchedules: EventInput[][] = [];

@@ -163,9 +163,18 @@ export class InputComponent implements OnInit {
     // cast to
     let schedules: EventInput[][] = [];
     let criticalPairs: string[] = [];
+
+    // Quick clean up for the AI28 mess (we have two "AI28 Cours" and no TD so one of them should be the TD)
+    // replace all the "AI28 Cours" with "AI28 Cours/TD"
+    events.forEach((e) => {
+      if (e.title?.substring(0, 4) == 'AI28') {
+        e.title = 'AI28 Cours/TD';
+      }
+    });
+
     events.forEach((element) => {
       // if a title is present more than once, it is a critical pair
-      if (events.filter((e) => e.title === element.title).length > 1) {
+      if (events.filter((e) => e.title === element.title).length > 1 && element.title?.substring(0, 4) != 'AI28') {
         criticalPairs.push(element.title as string);
       }
     });
